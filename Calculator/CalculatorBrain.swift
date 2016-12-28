@@ -31,6 +31,10 @@ final class CalculatorBrain {
         "=" : Operation.Equals
     ]
     
+    func addUnaryOperation(withSymbol symbol: String, closure operation: @escaping (Double) -> Double) {
+        operations[symbol] = Operation.UnaryOperation(operation)
+    }
+    
     private var pending: PendingBinaryOperationInfo?
     
     private struct PendingBinaryOperationInfo {

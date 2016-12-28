@@ -10,6 +10,8 @@
 
 import UIKit
 
+var countVCs = 0
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var display: UILabel!
@@ -17,7 +19,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        countVCs += 1
+        print("VCs in heap: \(countVCs)")
+        
+        brain.addUnaryOperation(withSymbol: "🔴√") { [weak weakSelf = self] in
+            weakSelf?.display.backgroundColor = UIColor.red
+            return sqrt($0)
+        }
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    deinit {
+        countVCs -= 1
+        print("VCs in heap: \(countVCs)")
     }
     
     override func didReceiveMemoryWarning() {
